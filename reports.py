@@ -1,32 +1,42 @@
 import csv
 from pathlib import Path
 from datetime import datetime
-
-timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+from typing import List, Dict, Optional
 
 def load_test_plan():
     test_url_list = []
     PLAN_FILE = Path(__file__).parent / 'plan' / 'general.csv'
-    with open(PLAN_FILE, newline="", encoding="utf-8-sig") as csvfile:
-        reader = csv.DictReader(csvfile)
-        # 🔑 關鍵：清理欄位名稱
-        reader.fieldnames = [name.strip() for name in reader.fieldnames]
-        for row in reader:
-            test_url_list.append(row["url"].strip())
+    try:
+        with open(PLAN_FILE, newline="", encoding="utf-8-sig") as csvfile:
+            reader = csv.DictReader(csvfile)
+            reader.fieldnames = [name.strip() for name in reader.fieldnames]
+            for row in reader:
+                url = row.get("url", "").strip()
+                if url:  # 過濾空值
+                    test_url_list.append(url)
+    except FileNotFoundError:
+        print(f"找不到檔案：{PLAN_FILE}")
+    except KeyError as e:
+        print(f"CSV 檔案缺少必要欄位：{e}")
+    
     return test_url_list
 
-def generate_report(list_test_report, filename=f"report-{timestamp}.csv"):
+def generate_report(list_test_report: List[Dict[str, str]]) -> None:
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    filename = f"report-{timestamp}.csv"
+    output_path = Path(__file__).parent / 'report' / filename
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     # 欄位順序
     fieldnames = ["item", "response", "snapshot"]
-    # 開啟檔案（寫入模式）
-    with open(filename, mode="w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        # 寫入欄位名稱（標題）
-        writer.writeheader()
-        # 寫入每一列資料
-        for row in list_test_report:
-            writer.writerow(row)
-    print(f"報告已生成：{filename}")
+    try:
+        with open(output_path, mode="w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(list_test_report)  # 可以直接用 writerows
+        
+        print(f" 報告已生成：{filename}")
+    except Exception as e:
+        print(f" 寫入報告時發生錯誤：{e}")
     
 
 
