@@ -1,0 +1,3 @@
+item,response,snapshot
+signup,"{""token"": ""eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwNjM0NDQxLCJpYXQiOjE3NzA2MTY0NDEsImp0aSI6Ijc4ZTE0OTVmMTJmMjRkN2M5MTA0YTEyNGIxZWQ0ZWJhIiwidXNlcl9pZCI6MzU4fQ.WjljL4c01US9cztPFM4jKdS52waZxdpFHhVU0r4hFnE"", ""username"": ""test-user1""}",0.png
+signin,"{""token"": ""eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwNjM0NDQyLCJpYXQiOjE3NzA2MTY0NDIsImp0aSI6IjcwY2Y3NTg0MTVmNTQ0NjFhYjdkNDFmMzI3MjVkNDczIiwidXNlcl9pZCI6MzU4fQ.t0hrjmX7-hkFTrk3oui68e53y9_lxUZT9Tvolu6oazM"", ""username"": ""test-user1""}",1.png
