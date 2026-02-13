@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 def load_test_plan():
     test_url_list = []
@@ -32,11 +32,8 @@ def generate_report(list_test_report: List[Dict[str, str]]) -> None:
         with open(output_path, mode="w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(list_test_report)  # 可以直接用 writerows
+            writer.writerows(list_test_report)  
         
         print(f" 報告已生成：{filename}")
     except Exception as e:
         print(f" 寫入報告時發生錯誤：{e}")
-    
-
-
